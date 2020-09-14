@@ -34,21 +34,19 @@ export default function Home({totalMiles, weekCumulativeMiles}) {
             <a href="https://www.amazon.com/gp/product/B019RH7PPE/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1">
               hamster wheel
             </a>
-            . I spend so much time in it that my foster family decided to{' '}
+            . I use it so much that my foster family decided to{' '}
             <Link href="/how">
               <a>instrument my wheel</a>
             </Link>{' '}
-            to track how many times I make it turn every minute. I'm told they can use a{' '}
-            <a href="https://en.wikipedia.org/wiki/Circumference#Circle">thing called math</a> to
-            figure out how far I've run. Neat, eh?
+            to see just how far I run each night.
           </p>
         </section>
 
         <section>
           <h1>My Running Log</h1>
           <p>
-            I have run a total of <strong>{totalMiles.toFixed(1)}</strong> miles since August 23rd,
-            2020. Here's my recent progress.
+            I've run a total of <strong>{totalMiles.toFixed(1)}</strong> miles in my wheel since
+            August 23rd, 2020. Here's my recent progress.
           </p>
         </section>
         <section>

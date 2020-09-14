@@ -5,7 +5,7 @@ export default function How() {
     <Layout>
       <article>
         <section>
-          <h1>How Does It Work?</h1>
+          <h1>About My Wheel</h1>
           <p>Stay tuned!</p>
         </section>
       </article>
