@@ -16,10 +16,28 @@ function getTicks(data): number[] {
   return ticks
 }
 
+function AngledAxisTick({x, y, stroke, payload}) {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={0}
+        dy={5}
+        fontSize="0.6rem"
+        textAnchor="end"
+        fill="#666"
+        transform="rotate(-25)"
+      >
+        {moment(payload.value).tz('America/New_York').format('ddd MMM Do')}
+      </text>
+    </g>
+  )
+}
+
 export default function RunLog({data}: {data: Array<Object>}) {
   return (
     <ResponsiveContainer width="100%" aspect={1.618034}>
-      <LineChart data={data} margin={{bottom: 25}}>
+      <LineChart data={data} margin={{bottom: 35}}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           name="Date"
@@ -27,17 +45,15 @@ export default function RunLog({data}: {data: Array<Object>}) {
           domain={['auto', 'auto']}
           scale="time"
           type="number"
-          tick={{fontSize: '0.6rem'}}
+          tick={<AngledAxisTick />}
           ticks={getTicks(data)}
           interval={0}
-          tickFormatter={(epochMs: moment.MomentInput) =>
-            moment(epochMs).tz('America/New_York').format('ddd MMM Do')
-          }
         >
           <Label
-            value="Dates at Midnight in Durham, NC"
+            value="* Days marked at midnight in Durham, NC"
             style={{fontSize: '0.6rem', fill: '#666'}}
-            position="bottom"
+            position="insideBottomLeft"
+            offset={-32}
           />
         </XAxis>
         <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.7rem'}} />
