@@ -6,7 +6,7 @@ import RunLog from '../components/runlog'
 import {getTotalMiles, getWeekCumulativeMiles, getUserLocalDatetime} from '../lib/data'
 import styles from '../styles/Home.module.css'
 
-export default function Home({totalMiles, weekCumulativeMiles, tz, userLocaleDatetime}) {
+export default function Home({totalMiles, weekCumulativeMiles, tz}) {
   return (
     <Layout>
       <article>
