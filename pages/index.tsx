@@ -46,7 +46,8 @@ export default function Home({totalMiles, weekCumulativeMiles, tz, userLocaleDat
           <h1>My Running Log</h1>
           <p>
             I've run a total of <strong>{totalMiles.toFixed(1)}</strong> miles in my wheel from
-            August 23rd, 2020 to {userLocaleDatetime}. Here's my recent progress.
+            August 23rd, 2020 to {getUserLocalDatetime().format('MMMM Do, Y [at] h:mm A z')}. Here's
+            my recent progress.
           </p>
         </section>
         <section>
@@ -63,7 +64,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
       tz: 'America/New_York',
       totalMiles: await getTotalMiles(),
       weekCumulativeMiles: await getWeekCumulativeMiles(),
-      userLocaleDatetime: getUserLocalDatetime().format('MMMM Do, Y [at] h:mm A z'),
     },
   }
 }
