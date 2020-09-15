@@ -22,7 +22,7 @@ export async function getWeekCumulativeMiles() {
   const cumsum = rows.map((row: {cumsum_rotations: number; datetime_hour: string}) => {
     return {
       miles: origin + Number(row.cumsum_rotations) * wheelCircumference,
-      epoch_ms: moment(row.datetime_hour).tz('UTC').valueOf(),
+      epochMs: moment(row.datetime_hour).tz('UTC').valueOf(),
     }
   })
   return cumsum

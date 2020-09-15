@@ -1,16 +1,19 @@
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Label} from 'recharts'
 import moment from 'moment-timezone'
 
-function DatetimeAxisTick({x, y, stroke, payload}) {
-  console.log(payload.value)
-  const date = new Date(payload.value)
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-        {'tesT'}
-      </text>
-    </g>
-  )
+function getTicks(data): number[] {
+  const dayMs = 24 * 60 * 60 * 1000
+  const endMs = data[data.length - 1].epochMs
+  const startMs = data[0].epochMs
+  const ticks: number[] = []
+  let currMs = moment(startMs).tz('America/New_York').set({hour: 0, minute: 0, second: 0}).valueOf()
+  do {
+    if (currMs >= startMs) {
+      ticks.push(currMs)
+    }
+    currMs += dayMs
+  } while (currMs < endMs)
+  return ticks
 }
 
 export default function RunLog({data}: {data: Array<Object>}) {
@@ -20,18 +23,24 @@ export default function RunLog({data}: {data: Array<Object>}) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           name="Date"
-          dataKey="epoch_ms"
+          dataKey="epochMs"
           domain={['auto', 'auto']}
           scale="time"
           type="number"
           tick={{fontSize: '0.6rem'}}
-          minTickGap={0}
-          interval="preserveStartEnd"
-          tickFormatter={(unixTime: moment.MomentInput) =>
-            moment(unixTime).tz('America/New_York').format('MMM Do, ha z')
+          ticks={getTicks(data)}
+          interval={0}
+          tickFormatter={(epochMs: moment.MomentInput) =>
+            moment(epochMs).tz('America/New_York').format('ddd MMM Do')
           }
-        />
-        <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.8rem'}} />
+        >
+          <Label
+            value="Dates at Midnight in Durham, NC"
+            style={{fontSize: '0.6rem', fill: '#666'}}
+            position="bottom"
+          />
+        </XAxis>
+        <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.7rem'}} />
         <Line
           dataKey="miles"
           type="monotone"
