@@ -1,12 +1,12 @@
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Label} from 'recharts'
 import moment from 'moment-timezone'
 
-function getTicks(data): number[] {
+function getTicks(data: Array<{epochMs: number}>, tz: string): number[] {
   const dayMs = 24 * 60 * 60 * 1000
   const endMs = data[data.length - 1].epochMs
   const startMs = data[0].epochMs
   const ticks: number[] = []
-  let currMs = moment(startMs).tz('America/New_York').set({hour: 0, minute: 0, second: 0}).valueOf()
+  let currMs = moment(startMs).tz(tz).set({hour: 0, minute: 0, second: 0}).valueOf()
   do {
     if (currMs >= startMs) {
       ticks.push(currMs)
@@ -16,7 +16,13 @@ function getTicks(data): number[] {
   return ticks
 }
 
-export default function RunLog({data}: {data: Array<Object>}) {
+export default function RunLog({
+  data,
+  tz,
+}: {
+  data: Array<{epochMs: number; miles: number}>
+  tz: string
+}) {
   return (
     <ResponsiveContainer width="100%" aspect={1.618034}>
       <LineChart data={data} margin={{bottom: 35}}>
@@ -28,16 +34,16 @@ export default function RunLog({data}: {data: Array<Object>}) {
           scale="time"
           type="number"
           tick={{fontSize: '0.6rem'}}
-          ticks={getTicks(data)}
+          ticks={getTicks(data, tz)}
           interval={0}
           angle={-25}
           textAnchor="end"
           tickFormatter={(epochMs: moment.MomentInput) =>
-            moment(epochMs).tz('America/New_York').format('ddd MMM Do')
+            moment(epochMs).tz(tz).format('ddd MMM Do')
           }
         >
           <Label
-            value="* Days marked at midnight in Durham, NC"
+            value={'* Days marked at midnight in ' + tz}
             style={{fontSize: '0.6rem', fill: '#666'}}
             position="insideBottomLeft"
             offset={-32}
@@ -46,7 +52,7 @@ export default function RunLog({data}: {data: Array<Object>}) {
         <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.7rem'}} />
         <Line
           dataKey="miles"
-          type="monotone"
+          type="linear"
           dot={false}
           stroke="#383037"
           strokeWidth={1.5}

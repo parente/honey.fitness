@@ -50,7 +50,7 @@ export default function Home({totalMiles, weekCumulativeMiles}) {
           </p>
         </section>
         <section>
-          <RunLog data={weekCumulativeMiles} />
+          <RunLog data={weekCumulativeMiles} tz="America/New_York" />
         </section>
       </article>
     </Layout>
