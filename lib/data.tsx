@@ -27,3 +27,7 @@ export async function getWeekCumulativeMiles() {
   })
   return cumsum
 }
+
+export function getUserLocalDatetime() {
+  return moment().tz(moment.tz.guess())
+}

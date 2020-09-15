@@ -3,10 +3,10 @@ import Link from 'next/link'
 
 import Layout from '../components/layout'
 import RunLog from '../components/runlog'
-import {getTotalMiles, getWeekCumulativeMiles} from '../lib/data'
+import {getTotalMiles, getWeekCumulativeMiles, getUserLocalDatetime} from '../lib/data'
 import styles from '../styles/Home.module.css'
 
-export default function Home({totalMiles, weekCumulativeMiles}) {
+export default function Home({totalMiles, weekCumulativeMiles, tz, userLocaleDatetime}) {
   return (
     <Layout>
       <article>
@@ -38,19 +38,19 @@ export default function Home({totalMiles, weekCumulativeMiles}) {
             <Link href="/how">
               <a>instrument my wheel</a>
             </Link>{' '}
-            to see just how far I run each night.
+            to calculate how far I run each night.
           </p>
         </section>
 
         <section>
           <h1>My Running Log</h1>
           <p>
-            I've run a total of <strong>{totalMiles.toFixed(1)}</strong> miles in my wheel since
-            August 23rd, 2020. Here's my recent progress.
+            I've run a total of <strong>{totalMiles.toFixed(1)}</strong> miles in my wheel from
+            August 23rd, 2020 to {userLocaleDatetime}. Here's my recent progress.
           </p>
         </section>
         <section>
-          <RunLog data={weekCumulativeMiles} tz="America/New_York" />
+          <RunLog data={weekCumulativeMiles} tz={tz} />
         </section>
       </article>
     </Layout>
@@ -60,8 +60,10 @@ export default function Home({totalMiles, weekCumulativeMiles}) {
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
+      tz: 'America/New_York',
       totalMiles: await getTotalMiles(),
       weekCumulativeMiles: await getWeekCumulativeMiles(),
+      userLocaleDatetime: getUserLocalDatetime().format('MMMM Do, Y [at] h:mm A z'),
     },
   }
 }
