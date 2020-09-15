@@ -34,7 +34,7 @@ export default function Home({totalMiles, weekCumulativeMiles, tz}) {
             <a href="https://www.amazon.com/gp/product/B019RH7PPE/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1">
               hamster wheel
             </a>
-            . I use it so much that my foster family decided to{' '}
+            . I use it so much that my adoptive family decided to{' '}
             <Link href="/how">
               <a>instrument my wheel</a>
             </Link>{' '}
