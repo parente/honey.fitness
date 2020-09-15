@@ -16,24 +16,6 @@ function getTicks(data): number[] {
   return ticks
 }
 
-function AngledAxisTick({x, y, stroke, payload}) {
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text
-        x={0}
-        y={0}
-        dy={5}
-        fontSize="0.6rem"
-        textAnchor="end"
-        fill="#666"
-        transform="rotate(-25)"
-      >
-        {moment(payload.value).tz('America/New_York').format('ddd MMM Do')}
-      </text>
-    </g>
-  )
-}
-
 export default function RunLog({data}: {data: Array<Object>}) {
   return (
     <ResponsiveContainer width="100%" aspect={1.618034}>
@@ -45,9 +27,14 @@ export default function RunLog({data}: {data: Array<Object>}) {
           domain={['auto', 'auto']}
           scale="time"
           type="number"
-          tick={<AngledAxisTick />}
+          tick={{fontSize: '0.6rem'}}
           ticks={getTicks(data)}
           interval={0}
+          angle={-25}
+          textAnchor="end"
+          tickFormatter={(epochMs: moment.MomentInput) =>
+            moment(epochMs).tz('America/New_York').format('ddd MMM Do')
+          }
         >
           <Label
             value="* Days marked at midnight in Durham, NC"
