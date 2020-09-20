@@ -1,7 +1,14 @@
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Label} from 'recharts'
 import moment from 'moment-timezone'
 
-function getTicks(data: Array<{epochMs: number}>, tz: string): number[] {
+const sessionMs = 8 * 60 * 60 * 1000
+
+/**
+ * Compute tick marks at midnight in the given timezone within the data domain
+ * @param data Datetime mile marks
+ * @param tz Timezone of the rendered plot
+ */
+function getTicks(data: Array<{miles: number; epochMs: number}>, tz: string): number[] {
   const dayMs = 24 * 60 * 60 * 1000
   const endMs = data[data.length - 1].epochMs
   const startMs = data[0].epochMs
@@ -16,6 +23,53 @@ function getTicks(data: Array<{epochMs: number}>, tz: string): number[] {
   return ticks
 }
 
+/**
+ * Compute the increase in miles between each running session
+ * @param data Datetime mile marks
+ */
+export function getDeltaMiles(data: Array<{miles: number; epochMs: number}>): Map<number, number> {
+  const deltas = new Map()
+  let lastSession = null
+  for (var i = 0; i < data.length - 1; i++) {
+    const curr = data[i]
+    const next = data[i + 1]
+    if (next.epochMs > curr.epochMs + sessionMs) {
+      if (lastSession !== null) {
+        deltas[curr.epochMs] = curr.miles - lastSession
+      }
+      lastSession = curr.miles
+    }
+  }
+  return deltas
+}
+
+/**
+ * Render a delta miles label
+ */
+function DeltaLabel({
+  x,
+  y,
+  index,
+  data,
+  deltas,
+}: {
+  x: number
+  y: number
+  index: number
+  data: Array<{miles: number; epochMs: number}>
+  deltas: Map<number, number>
+}) {
+  const deltaMiles = deltas[data[index].epochMs]
+  return deltaMiles ? (
+    <text x={x} y={y} dy={-5} fontSize="0.6rem">
+      +{deltaMiles.toFixed(1)}
+    </text>
+  ) : null
+}
+
+/**
+ * Render a cumulative run log plot
+ */
 export default function RunLog({
   data,
   tz,
@@ -33,7 +87,7 @@ export default function RunLog({
           domain={['auto', 'auto']}
           scale="time"
           type="number"
-          tick={{fontSize: '0.6rem'}}
+          tick={{fontSize: '0.65rem'}}
           ticks={getTicks(data, tz)}
           interval={0}
           angle={-25}
@@ -49,7 +103,7 @@ export default function RunLog({
             offset={-32}
           />
         </XAxis>
-        <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.7rem'}} />
+        <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.65rem'}} />
         <Line
           dataKey="miles"
           type="linear"
@@ -58,6 +112,7 @@ export default function RunLog({
           strokeWidth={1.5}
           animationDuration={750}
           connectNulls
+          label={<DeltaLabel x={1} y={1} index={1} data={data} deltas={getDeltaMiles(data)} />}
         />
       </LineChart>
     </ResponsiveContainer>

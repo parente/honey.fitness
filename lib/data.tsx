@@ -1,27 +1,27 @@
 import csv from 'async-csv'
 import moment from 'moment-timezone'
 
-const wheelCircumference: number = (8.5 * Math.PI) / 63360 // miles
+const wheelCircumferenceMiles: number = (8.5 * Math.PI) / 63360
 
 export async function getTotalMiles() {
   const resp = await fetch('https://honey-data-public.s3.amazonaws.com/total-rotations.csv')
   const respText = await resp.text()
   const rows = await csv.parse(respText, {columns: true})
-  return rows[0].total * wheelCircumference
+  return rows[0].total * wheelCircumferenceMiles
 }
 
 export async function getWeekCumulativeMiles() {
   let resp = await fetch('https://honey-data-public.s3.amazonaws.com/prior-7-day-window.csv')
   let respText: string = await resp.text()
   let rows = await csv.parse(respText, {columns: true})
-  const origin: number = rows[0].prior_rotations * wheelCircumference
+  const origin: number = rows[0].prior_rotations * wheelCircumferenceMiles
 
   resp = await fetch('https://honey-data-public.s3.amazonaws.com/7-day-window.csv')
   respText = await resp.text()
   rows = await csv.parse(respText, {columns: true})
   const cumsum = rows.map((row: {cumsum_rotations: number; datetime_hour: string}) => {
     return {
-      miles: origin + Number(row.cumsum_rotations) * wheelCircumference,
+      miles: origin + Number(row.cumsum_rotations) * wheelCircumferenceMiles,
       epochMs: moment(row.datetime_hour).tz('UTC').valueOf(),
     }
   })

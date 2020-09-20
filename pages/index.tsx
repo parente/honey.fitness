@@ -3,10 +3,18 @@ import Link from 'next/link'
 
 import Layout from '../components/layout'
 import RunLog from '../components/runlog'
-import {getTotalMiles, getWeekCumulativeMiles, getUserLocalDatetime} from '../lib/data'
+import {getTotalMiles, getUserLocalDatetime, getWeekCumulativeMiles} from '../lib/data'
 import styles from '../styles/Home.module.css'
 
-export default function Home({totalMiles, weekCumulativeMiles, tz}) {
+export default function Home({
+  totalMiles,
+  tz,
+  weekCumulativeMiles,
+}: {
+  totalMiles: number
+  tz: string
+  weekCumulativeMiles: Array<{miles: number; epochMs: number}>
+}) {
   return (
     <Layout>
       <article>
