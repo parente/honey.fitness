@@ -112,7 +112,12 @@ export default function RunLog({
             offset={-32}
           />
         </XAxis>
-        <YAxis name="Miles" unit=" mi" domain={['auto', 'auto']} tick={{fontSize: '0.65rem'}} />
+        <YAxis
+          name="Miles"
+          unit=" mi"
+          domain={['auto', 'dataMax + 5']}
+          tick={{fontSize: '0.65rem'}}
+        />
         <Line
           dataKey="miles"
           type="linear"
