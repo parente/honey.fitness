@@ -78,6 +78,7 @@ export default function RunLog({
   data: Array<{epochMs: number; miles: number}>
   tz: string
 }) {
+  const first = data[0]
   // Forward fill current time to the end of the dataset to show progress of time, even if it gets
   // replaced with values in the future
   const last = data[data.length - 1]
@@ -88,7 +89,7 @@ export default function RunLog({
 
   return (
     <ResponsiveContainer width="100%" aspect={1.618034}>
-      <LineChart data={data} margin={{bottom: 42}}>
+      <LineChart data={data} margin={{bottom: 42, left: -12}}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           name="Date"
@@ -115,7 +116,7 @@ export default function RunLog({
         <YAxis
           name="Miles"
           unit=" mi"
-          domain={['auto', 'dataMax + 5']}
+          domain={[Math.floor(first.miles / 10) * 10 - 5, Math.ceil(last.miles / 10) * 10 + 5]}
           tick={{fontSize: '0.65rem'}}
         />
         <Line
