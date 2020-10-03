@@ -2,7 +2,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  height: 100%;
   font-family: 'Roboto', sans-serif;
 
   color: #211c20;
@@ -38,10 +37,6 @@ body {
       rgba(0, 0, 0, 0.1)
     );
   background-size: 70px 120px;
-}
-
-body > div:first-child {
-  height: 100%;
 }
 
 a {
