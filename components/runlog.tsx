@@ -88,7 +88,7 @@ export default function RunLog({
 
   return (
     <ResponsiveContainer width="100%" aspect={1.618034}>
-      <LineChart data={data} margin={{bottom: 35}}>
+      <LineChart data={data} margin={{bottom: 42}}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           name="Date"
@@ -107,9 +107,9 @@ export default function RunLog({
         >
           <Label
             value={'* Days marked at midnight in ' + tz}
-            style={{fontSize: '0.6rem', fill: '#666'}}
+            style={{fontSize: '0.6rem', fill: '#211c20'}}
             position="insideBottomLeft"
-            offset={-32}
+            offset={-40}
           />
         </XAxis>
         <YAxis
@@ -122,7 +122,7 @@ export default function RunLog({
           dataKey="miles"
           type="linear"
           dot={false}
-          stroke="#383037"
+          stroke="#211c20"
           strokeWidth={1.5}
           animationDuration={750}
           connectNulls

@@ -1,8 +1,19 @@
 .selfie {
-  float: right;
-  margin-left: 1rem;
   margin-bottom: 1rem;
-  transform: rotate(5deg);
-  border: 1px solid #383037;
+  border: 1px solid #62543e;
   padding: 0.5rem;
+  box-shadow: 2px 2px 4px #c2b79b;
+  background-color: #f8f6f2;
+}
+
+.selfieRight {
+  float: right;
+  margin-left: 2rem;
+  transform: rotate(5deg);
+}
+
+.selfieLeft {
+  float: left;
+  margin-right: 2rem;
+  transform: rotate(-2deg);
 }

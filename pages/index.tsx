@@ -24,7 +24,7 @@ export default function Home({
             src="/honey.jpg"
             alt="Picture of Honey the Hamster"
             height="250px"
-            className={styles.selfie}
+            className={styles.selfie + ' ' + styles.selfieRight}
           />
           <p>
             Hi! My name is Honey. I am a{' '}
@@ -57,8 +57,7 @@ export default function Home({
             August 23rd, 2020 to {getUserLocalDatetime().format('MMMM Do, Y [at] h:mm A z')}. Here's
             my recent progress.
           </p>
-        </section>
-        <section>
+
           <RunLog data={weekCumulativeMiles} tz={tz} />
         </section>
       </article>
