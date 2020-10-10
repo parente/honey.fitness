@@ -59,6 +59,37 @@ export default function Home({
           </p>
 
           <RunLog data={weekCumulativeMiles} tz={tz} />
+
+          <p>
+            <img
+              src="/honey-food.jpg"
+              alt="Picture of Honey in her food bag"
+              height="250px"
+              className={styles.selfie + ' ' + styles.selfieLeft}
+            />
+          </p>
+        </section>
+
+        <section>
+          <h1>About My Wheel</h1>
+          <iframe
+            src="https://giphy.com/embed/TtIOES7JmywDBkEHRD"
+            width="320"
+            height="186"
+            frameBorder="0"
+            className={styles.selfie + ' ' + styles.selfieLeft}
+          ></iframe>
+
+          <h2>Parts List</h2>
+          <ul>
+            <li>
+              <a href="https://www.acehardware.com/departments/tools/hand-tools/magnets/2108546">
+                Master Magnetics .197 in. Ceramic Disc Magnets 0.7 lb. pull 3.5 MGOe
+              </a>
+            </li>
+            <li></li>
+            <li></li>
+          </ul>
         </section>
       </article>
     </Layout>

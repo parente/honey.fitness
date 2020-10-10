@@ -47,3 +47,17 @@ a {
 * {
   box-sizing: border-box;
 }
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 1.15rem;
+  font-weight: normal;
+}
+
+ul li {
+  list-style-position: inside;
+}
