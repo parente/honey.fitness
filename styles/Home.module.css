@@ -6,16 +6,26 @@
   background-color: #f8f6f2;
 }
 
-.selfieRight {
+.right {
   float: right;
   margin-left: 2rem;
+}
+
+.tiltRight5 {
   transform: rotate(5deg);
 }
 
-.selfieLeft {
+.left {
   float: left;
   margin-right: 2rem;
+}
+
+.tiltLeft2 {
   transform: rotate(-2deg);
+}
+
+.clearLeft {
+  clear: left;
 }
 
 .chart {

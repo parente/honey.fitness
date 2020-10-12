@@ -13,4 +13,5 @@
 
 .container section {
   margin-bottom: 4rem;
+  clear: both;
 }
