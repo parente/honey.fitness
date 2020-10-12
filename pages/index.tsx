@@ -34,7 +34,8 @@ export default function Home({
 
           <p>
             My species is nocturnal in captivity. While our caretakers sleep, we like to run up to{' '}
-            <em>5 miles</em> a night. That's quite a distance for our petite bodies if I may say so.
+            <em>5 miles</em> a night. That's quite a distance for our pint-sized stature if I may
+            say so.
           </p>
 
           <p>
@@ -59,21 +60,6 @@ export default function Home({
 
         <section>
           <h1 id="about-my-wheel">About My Wheel</h1>
-          <iframe
-            src="https://giphy.com/embed/TtIOES7JmywDBkEHRD"
-            width="320"
-            height="186"
-            frameBorder="0"
-            className={styles.selfie + ' ' + styles.left + ' ' + styles.tiltLeft2}
-          ></iframe>
-
-          <img
-            src="/back-of-wheel.jpg"
-            alt="Picture of the magnet and sensor mounted on my wheel and stand"
-            height="400px"
-            className={styles.selfie + ' ' + styles.left + ' ' + styles.tiltLeft2}
-          />
-
           <p>
             My exercise wheel has two ball bearings that roll around a central bolt fed through a
             metal stand. The construction keeps the wheel from squeaking and my fur from getting
@@ -81,6 +67,14 @@ export default function Home({
             of the wheel and a magnetic field sensor to its stand.
           </p>
 
+          <video
+            src="wheel-run.mp4"
+            autoPlay
+            loop
+            controls
+            className={styles.selfie}
+            width="100%"
+          ></video>
           <p>
             The magnet passes in front of the sensor once for every full revolution of my wheel. The
             sensor registers the presence of the magnet with a change in voltage on one of the wires
@@ -88,6 +82,13 @@ export default function Home({
             sensor registers the magnet every minute. It saves the count to disk at the end of each
             minute.
           </p>
+
+          <img
+            src="/back-of-wheel.jpg"
+            alt="Picture of the magnet and sensor mounted on my wheel and stand"
+            height="400px"
+            className={styles.selfie + ' ' + styles.left + ' ' + styles.tiltLeft2}
+          />
 
           <p>
             The computer uploads the rotation counts for the past hour to{' '}
