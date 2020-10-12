@@ -120,9 +120,9 @@ export default function Home({
             className={styles.selfie + ' ' + styles.right + ' ' + styles.tiltRight5}
           />
           <p>
-            Here's everything you need to put together a wheel like mine. The upfront cost for all
-            the parts is about is about $80. The cost of running this website can be as low as $1
-            per month but depends on the number of visitors.
+            Here's everything you need to put together a wheel and website like mine. The upfront
+            cost for all the parts is about is about $80. The cost of running this website can be as
+            low as $1 per month but depends on the number of visitors.
           </p>
           <ul>
             <li>
@@ -160,6 +160,12 @@ export default function Home({
               <a href="https://www.raspberrypi.org/products/raspberry-pi-1-model-a-plus/">
                 Raspberry Pi 1 Model A+
               </a>
+            </li>
+            <li>
+              One <a href="https://github.com/parente/honey.data/">data pipeline</a>
+            </li>
+            <li>
+              One <a href="https://github.com/parente/honey.fitness/">dynamic website</a>
             </li>
           </ul>
         </section>
