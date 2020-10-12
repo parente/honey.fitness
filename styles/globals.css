@@ -60,6 +60,10 @@ h2 {
   clear: both;
 }
 
+ul {
+  padding: 0;
+}
+
 ul li {
   list-style-position: inside;
 }
