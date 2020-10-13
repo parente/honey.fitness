@@ -178,7 +178,7 @@ export default function Home({
 
           <p className={styles.fixedHeight}>
             Phew. That was a lot of explaining. Good thing I pack snacks. Please check back daily
-            for my progress and follow me{' '}
+            for my progress and follow me at{' '}
             <a href="https://www.instagram.com/honey_thebesthamster/">honey_thebesthamster</a>, one
             of the many{' '}
             <a href="https://www.instagram.com/explore/tags/hamstersofinstagram/">
