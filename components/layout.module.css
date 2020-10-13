@@ -8,10 +8,23 @@
 
 .container p {
   text-align: justify;
-  line-height: 1.5rem;
+  line-height: 1.65rem;
+}
+
+.container li {
+  text-align: justify;
+  line-height: 1.65rem;
 }
 
 .container section {
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
   clear: both;
+}
+
+.container hr {
+  border: 0 solid white;
+  height: 1px;
+  width: 66%;
+  background-color: #ddd7c7;
+  margin-bottom: 3.5rem;
 }

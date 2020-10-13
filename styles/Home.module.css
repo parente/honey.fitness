@@ -24,8 +24,16 @@
   transform: rotate(-2deg);
 }
 
-.clearLeft {
-  clear: left;
+.tiltRight2 {
+  transform: rotate(2deg);
+}
+
+.fixedHeight {
+  height: 200px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left !important;
+  font-style: italic;
 }
 
 .chart {

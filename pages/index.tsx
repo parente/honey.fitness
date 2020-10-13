@@ -87,7 +87,7 @@ export default function Home({
             src="/back-of-wheel.jpg"
             alt="Picture of the magnet and sensor mounted on my wheel and stand"
             height="400px"
-            className={styles.selfie + ' ' + styles.left + ' ' + styles.tiltLeft2}
+            className={styles.selfie + ' ' + styles.right + ' ' + styles.tiltRight2}
           />
 
           <p>
@@ -102,12 +102,8 @@ export default function Home({
             When you visit this website, your browser downloads the numbers computed by Athena and
             uses them to show my running log. Your browser turns the numbers into distances by
             multiplying the rotation counts by the circumference of my wheel,{' '}
-            <em>
-              &pi; &times; d = &pi; &times; 8.5 inches &divide; 63,360 inches per mile = ~0.0004215
-              miles
-            </em>
-            . That's how far I would have traveled in a straight line on the ground for one full
-            revolution of my wheel.
+            <em>&pi; &times; d = &pi; &times; 8.5 inches = 26.7 inches</em>. That's how far I would
+            have traveled in a straight line on the ground for each full turn of my wheel.
           </p>
         </section>
 
@@ -121,8 +117,8 @@ export default function Home({
           />
           <p>
             Here's everything you need to put together a wheel and website like mine. The upfront
-            cost for all the parts is about is about $80. The cost of running this website can be as
-            low as $1 per month but depends on the number of visitors.
+            cost for all the parts is about $80. The cost of running this website can be as low as
+            $1 per month but depends on the number of visitors.
           </p>
           <ul>
             <li>
@@ -168,6 +164,28 @@ export default function Home({
               One <a href="https://github.com/parente/honey.fitness/">dynamic website</a>
             </li>
           </ul>
+        </section>
+
+        <hr />
+
+        <section>
+          <img
+            src="/honey-cheeks.jpg"
+            alt="Picture of Honey in her food bag"
+            height="250px"
+            className={styles.selfie + ' ' + styles.right + ' ' + styles.tiltRight5}
+          />
+
+          <p className={styles.fixedHeight}>
+            Phew. That was a lot of explaining. Good thing I pack snacks. Please check back daily
+            for my progress and follow me{' '}
+            <a href="https://www.instagram.com/honey_thebesthamster/">honey_thebesthamster</a>, one
+            of the many{' '}
+            <a href="https://www.instagram.com/explore/tags/hamstersofinstagram/">
+              #hamstersofinstagram
+            </a>
+            .
+          </p>
         </section>
       </article>
     </Layout>
