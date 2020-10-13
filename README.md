@@ -1,2 +1,4 @@
-A website tracking how far the family hamster, Honey, has run in her wheel each 
-day
+# honey.fitness
+
+Source code and media for the [honey.fitness](https://honey.fitness) website running on
+[Vercel](https://vercel.com).
