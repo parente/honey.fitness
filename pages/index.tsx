@@ -3,17 +3,24 @@ import {ResponsiveCalendar} from '@nivo/calendar'
 
 import Layout from '../components/layout'
 import RunLog from '../components/runlog'
-import {getTotalMiles, getUserLocalDatetime, getWeekCumulativeMiles} from '../lib/data'
+import {
+  getTotalMiles,
+  getDailyMiles,
+  getUserLocalDatetime,
+  getWeekCumulativeMiles,
+} from '../lib/data'
 import styles from '../styles/Home.module.css'
 
 export default function Home({
   totalMiles,
   tz,
   weekCumulativeMiles,
+  dailyMiles,
 }: {
   totalMiles: number
   tz: string
   weekCumulativeMiles: Array<{miles: number; epochMs: number}>
+  dailyMiles: Array<{day: string; value: number}>
 }) {
   return (
     <Layout>
@@ -59,23 +66,15 @@ export default function Home({
 
           <div className={styles.chart + ' ' + styles.heatmap}>
             <ResponsiveCalendar
-              data={[
-                {
-                  day: '2020-01-23',
-                  value: 8.8,
-                },
-                {
-                  day: '2020-10-24',
-                  value: 10.1,
-                },
-              ]}
-              from="2020-08-23"
-              to="2021-02-23"
+              data={dailyMiles}
+              from={dailyMiles[0].day}
+              to="2020-12-31"
               emptyColor="#eeeeee"
               margin={{left: 40}}
               yearSpacing={50}
               monthBorderColor="#f8f6f2"
               dayBorderColor="#f8f6f2"
+              colors={['#000003', '#2c0e5b', '#600681', '#b61c7e', '#f33564', '#ffba7d', '#fbfcbb']}
             />
           </div>
         </section>
@@ -220,6 +219,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       tz: 'America/New_York',
       totalMiles: await getTotalMiles(),
       weekCumulativeMiles: await getWeekCumulativeMiles(),
+      dailyMiles: await getDailyMiles(),
     },
   }
 }

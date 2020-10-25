@@ -28,6 +28,16 @@ export async function getWeekCumulativeMiles() {
   return cumsum
 }
 
+export async function getDailyMiles() {
+  let resp = await fetch('https://honey-data-public.s3.amazonaws.com/1-year-window.csv')
+  let respText: string = await resp.text()
+  let rows = await csv.parse(respText, {columns: true})
+  rows = await csv.parse(respText, {columns: true})
+  return rows.map((row: {day: string; value: number}) => {
+    return {day: row.day, value: (row.value * wheelCircumferenceMiles).toFixed(1)}
+  })
+}
+
 export function getUserLocalDatetime() {
   return moment().tz(moment.tz.guess())
 }
