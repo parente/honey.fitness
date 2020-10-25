@@ -1,5 +1,5 @@
 import {GetServerSideProps} from 'next'
-import Link from 'next/link'
+import {ResponsiveCalendar} from '@nivo/calendar'
 
 import Layout from '../components/layout'
 import RunLog from '../components/runlog'
@@ -55,6 +55,28 @@ export default function Home({
 
           <div className={styles.chart}>
             <RunLog data={weekCumulativeMiles} tz={tz} />
+          </div>
+
+          <div className={styles.chart + ' ' + styles.heatmap}>
+            <ResponsiveCalendar
+              data={[
+                {
+                  day: '2020-01-23',
+                  value: 8.8,
+                },
+                {
+                  day: '2020-10-24',
+                  value: 10.1,
+                },
+              ]}
+              from="2020-08-23"
+              to="2021-02-23"
+              emptyColor="#eeeeee"
+              margin={{left: 40}}
+              yearSpacing={50}
+              monthBorderColor="#f8f6f2"
+              dayBorderColor="#f8f6f2"
+            />
           </div>
         </section>
 

@@ -39,3 +39,7 @@
 .chart {
   margin: 2rem 0;
 }
+
+.heatmap {
+  height: 250px;
+}
