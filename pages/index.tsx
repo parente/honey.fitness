@@ -67,8 +67,9 @@ export default function Home({
           </div>
 
           <p>
-            And here's how much I've run from noon one day to the next. The lighter the color, the
-            farther I ran.
+            Here's a calendar showing how much I've run from noon one day to the next. The darker
+            the box, the farther I ran overnight. Gray boxes mean my wheel didn't collect any data
+            that night.
           </p>
 
           <div className={styles.chart + ' ' + styles.heatmap}>
@@ -79,34 +80,19 @@ export default function Home({
               emptyColor="#eeeeee"
               margin={{left: 30}}
               yearSpacing={50}
+              monthSpacing={5}
               monthBorderColor="#f8f6f2"
               dayBorderColor="#f8f6f2"
               colors={[
-                '#00224e',
-                '#002a5f',
-                '#003170',
-                '#1a386f',
-                '#2a3f6d',
-                '#38476c',
-                '#434e6c',
-                '#4d556c',
-                '#575d6d',
-                '#61656f',
-                '#6a6c71',
-                '#737475',
-                '#7d7c78',
-                '#868379',
-                '#918b78',
-                '#9b9476',
-                '#a59c74',
-                '#b0a571',
-                '#bcae6c',
-                '#c6b667',
-                '#d2c060',
-                '#dec958',
-                '#e9d34e',
-                '#f6dd3f',
-                '#fee838',
+                '#ddd7c7',
+                '#cac4b4',
+                '#b7b0a1',
+                '#a49c8e',
+                '#90887b',
+                '#7d7468',
+                '#696055',
+                '#564c42',
+                '#42382f',
               ]}
             />
           </div>
