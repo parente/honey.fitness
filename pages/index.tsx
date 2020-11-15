@@ -6,6 +6,7 @@ import RunLog from '../components/runlog'
 import {
   getTotalMiles,
   getDailyMiles,
+  getTwoYearRange,
   getUserLocalDatetime,
   getWeekCumulativeMiles,
 } from '../lib/data'
@@ -22,6 +23,7 @@ export default function Home({
   weekCumulativeMiles: Array<{miles: number; epochMs: number}>
   dailyMiles: Array<{day: string; value: number}>
 }) {
+  const heatmapRange = getTwoYearRange(dailyMiles[0].day, dailyMiles[dailyMiles.length - 1].day)
   return (
     <Layout>
       <article>
@@ -64,17 +66,48 @@ export default function Home({
             <RunLog data={weekCumulativeMiles} tz={tz} />
           </div>
 
+          <p>
+            And here's how much I've run from noon one day to the next. The lighter the color, the
+            farther I ran.
+          </p>
+
           <div className={styles.chart + ' ' + styles.heatmap}>
             <ResponsiveCalendar
               data={dailyMiles}
-              from={dailyMiles[0].day}
-              to="2020-12-31"
+              from={heatmapRange.start}
+              to={heatmapRange.end}
               emptyColor="#eeeeee"
-              margin={{left: 40}}
+              margin={{left: 30}}
               yearSpacing={50}
               monthBorderColor="#f8f6f2"
               dayBorderColor="#f8f6f2"
-              colors={['#000003', '#2c0e5b', '#600681', '#b61c7e', '#f33564', '#ffba7d', '#fbfcbb']}
+              colors={[
+                '#00224e',
+                '#002a5f',
+                '#003170',
+                '#1a386f',
+                '#2a3f6d',
+                '#38476c',
+                '#434e6c',
+                '#4d556c',
+                '#575d6d',
+                '#61656f',
+                '#6a6c71',
+                '#737475',
+                '#7d7c78',
+                '#868379',
+                '#918b78',
+                '#9b9476',
+                '#a59c74',
+                '#b0a571',
+                '#bcae6c',
+                '#c6b667',
+                '#d2c060',
+                '#dec958',
+                '#e9d34e',
+                '#f6dd3f',
+                '#fee838',
+              ]}
             />
           </div>
         </section>

@@ -41,3 +41,17 @@ export async function getDailyMiles() {
 export function getUserLocalDatetime() {
   return moment().tz(moment.tz.guess())
 }
+
+export function getTwoYearRange(start: string, end: string) {
+  const startYear = moment(start).year()
+  const endYear = moment(end).year()
+  return {
+    start,
+    end:
+      startYear === endYear
+        ? moment(start)
+            .set({year: startYear + 1})
+            .format('Y-MM-DD')
+        : end,
+  }
+}
