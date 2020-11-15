@@ -78,7 +78,7 @@ export default function Home({
               from={heatmapRange.start}
               to={heatmapRange.end}
               emptyColor="#eeeeee"
-              margin={{left: 30}}
+              margin={{left: 20}}
               yearSpacing={50}
               monthSpacing={5}
               monthBorderColor="#f8f6f2"
