@@ -9,6 +9,7 @@
 .container p {
   text-align: justify;
   line-height: 1.65rem;
+  margin-bottom: 2.5rem;
 }
 
 .container li {

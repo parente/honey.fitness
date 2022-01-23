@@ -1,9 +1,15 @@
 .selfie {
   margin-bottom: 1rem;
   border: 1px solid #62543e;
-  padding: 0.5rem;
+  padding: 0.4rem;
   box-shadow: 2px 2px 4px #c2b79b;
   background-color: #f8f6f2;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .right {
@@ -28,12 +34,9 @@
   transform: rotate(2deg);
 }
 
-.fixedHeight {
-  height: 200px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: left !important;
+.footer {
   font-style: italic;
+  font-size: 0.8rem;
 }
 
 .chart {
@@ -41,5 +44,5 @@
 }
 
 .heatmap {
-  height: 240px;
+  height: 360px;
 }
