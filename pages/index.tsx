@@ -26,7 +26,7 @@ export default function Home({
           <p>
             Honey the Syrian long-haired hamster (full name: Honey the Destroyer of Worlds, 
             Killer of Men, Five-time Olympic Gold Medalist) passed away on January 18th, 2022. An 
-            avid runner, Honey clocked more than <strong>1,886 miles</strong> miles in her hamster 
+            avid runner, Honey clocked more than <strong>1,886 miles</strong> in her hamster 
             wheel in less than two 
             years. When asked if her diet was the  key to her fitness prowess, she was known to 
             remark, "...", with her cheeks full of secrets.
