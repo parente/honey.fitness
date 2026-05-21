@@ -21,14 +21,31 @@
 
   const dayMap = $derived(buildDayMap(data));
   const max = $derived(maxMiles(data));
-  const years = $derived([...new Set(data.map((d) => d.day.slice(0, 4)))].sort());
 
   const CELL = 10;
   const GAP = 1;
   const STEP = CELL + GAP;
   const LABEL_W = 24;
-  const MONTH_H = 14;
+  const YEAR_H = 12; // height for year label row
+  const MONTH_H = 12; // height for month label row
+  const TOP_H = YEAR_H + MONTH_H; // total top margin
+
   const DOW_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+
+  // Responsive: measure container width to derive weeks per row
+  let containerEl: HTMLDivElement | undefined = $state();
+  let containerW = $state(600);
+
+  $effect(() => {
+    if (!containerEl || typeof ResizeObserver === 'undefined') return;
+    const obs = new ResizeObserver((entries) => {
+      containerW = entries[0].contentRect.width;
+    });
+    obs.observe(containerEl);
+    return () => obs.disconnect();
+  });
+
+  const weeksPerRow = $derived(Math.max(4, Math.floor((containerW - LABEL_W) / STEP)));
 
   interface Cell {
     day: string;
@@ -39,60 +56,87 @@
     tipLabel: string;
   }
 
-  interface YearData {
-    year: string;
+  interface Row {
+    rowIdx: number;
+    cells: Cell[];
+    monthLabels: { x: number; label: string }[];
+    yearLabels: { x: number; year: string }[];
     svgW: number;
     svgH: number;
-    monthLabels: { x: number; label: string }[];
-    cells: Cell[];
   }
 
-  function buildYearData(year: string): YearData {
-    const yFrom = year === years[0] ? from : `${year}-01-01`;
-    const yTo = year === years[years.length - 1] ? to : `${year}-12-31`;
-    const weeks = buildWeeks(yFrom, yTo);
-    const svgW = LABEL_W + weeks.length * STEP;
-    const svgH = MONTH_H + 7 * STEP;
+  const rows = $derived.by((): Row[] => {
+    const allWeeks = buildWeeks(from, to);
+    const result: Row[] = [];
 
-    const monthLabels: { x: number; label: string }[] = [];
-    let lastMonth = '';
-    weeks.forEach((week, wi) => {
-      const firstDay = week.find((d) => d !== '');
-      if (firstDay) {
-        const m = firstDay.slice(5, 7);
-        if (m !== lastMonth) {
-          monthLabels.push({
-            x: LABEL_W + wi * STEP,
-            label: new Date(firstDay + 'T12:00:00Z').toLocaleDateString('en-US', {
-              month: 'short',
-              timeZone: 'UTC',
-            }),
-          });
-          lastMonth = m;
+    for (let start = 0; start < allWeeks.length; start += weeksPerRow) {
+      const rowWeeks = allWeeks.slice(start, start + weeksPerRow);
+      const cells: Cell[] = [];
+      const monthLabels: { x: number; label: string }[] = [];
+      const yearLabels: { x: number; year: string }[] = [];
+      let lastMonth = '';
+      let lastYear = '';
+
+      rowWeeks.forEach((week, wi) => {
+        const firstDay = week.find((d) => d !== '');
+        if (firstDay) {
+          const m = firstDay.slice(5, 7);
+          const y = firstDay.slice(0, 4);
+          if (y !== lastYear) {
+            yearLabels.push({ x: LABEL_W + wi * STEP, year: y });
+            lastYear = y;
+            lastMonth = ''; // force month label after year label
+          }
+          if (m !== lastMonth) {
+            monthLabels.push({
+              x: LABEL_W + wi * STEP,
+              label: new Date(firstDay + 'T12:00:00Z').toLocaleDateString('en-US', {
+                month: 'short',
+                timeZone: 'UTC',
+              }),
+            });
+            lastMonth = m;
+          }
         }
-      }
-    });
 
-    const cells: Cell[] = [];
-    weeks.forEach((week, wi) => {
-      week.forEach((day, di) => {
-        if (!day) return;
-        const miles = dayMap.get(day) ?? 0;
-        const color = bucketColor(miles, max);
-        const tipLabel =
-          color === EMPTY_COLOR
-            ? `${fmtShort(day)}: no data`
-            : `${fmtShort(day)}: ${miles.toFixed(1)} mi`;
-        cells.push({ day, wi, di, miles, color, tipLabel });
+        week.forEach((day, di) => {
+          if (!day) return;
+          const miles = dayMap.get(day) ?? 0;
+          const color = bucketColor(miles, max);
+          const tipLabel =
+            color === EMPTY_COLOR
+              ? `${fmtShort(day)}: no data`
+              : `${fmtShort(day)}: ${miles.toFixed(1)} mi`;
+          cells.push({ day, wi, di, miles, color, tipLabel });
+        });
       });
-    });
 
-    return { year, svgW, svgH, monthLabels, cells };
+      const svgW = LABEL_W + rowWeeks.length * STEP;
+      const svgH = TOP_H + 7 * STEP;
+      result.push({ rowIdx: start, cells, monthLabels, yearLabels, svgW, svgH });
+    }
+
+    return result;
+  });
+
+  // Tooltip
+  let tooltip: { label: string; x: number; y: number } | null = $state(null);
+
+  function showTooltip(e: MouseEvent | FocusEvent, label: string) {
+    const rect = (e.currentTarget as Element).getBoundingClientRect();
+    const containerRect = containerEl!.getBoundingClientRect();
+    tooltip = {
+      label,
+      x: rect.left - containerRect.left + rect.width / 2,
+      y: rect.top - containerRect.top - 6,
+    };
   }
 
-  const yearData = $derived(years.map(buildYearData));
+  function hideTooltip() {
+    tooltip = null;
+  }
 
-  // All valid days in order for keyboard navigation
+  // Keyboard nav
   const allDays = $derived(
     data
       .map((d) => d.day)
@@ -121,62 +165,86 @@
   }
 </script>
 
-<div class="calendar" aria-label="Lifetime running calendar — click a day to explore">
-  {#each yearData as yd (yd.year)}
-    <div class="year-block">
-      <svg width={yd.svgW} height={yd.svgH} role="img" aria-label="{yd.year} running activity">
-        {#each yd.monthLabels as ml (ml.x)}
-          <text x={ml.x} y={10} font-size="9" fill="#7d7468">{ml.label}</text>
-        {/each}
+<div class="calendar" aria-label="Lifetime running calendar" bind:this={containerEl}>
+  {#each rows as row (row.rowIdx)}
+    <svg
+      width={row.svgW}
+      height={row.svgH}
+      role="img"
+      aria-label="Running activity"
+      style="max-width:100%;display:block;margin-bottom:2px;"
+    >
+      {#each row.yearLabels as yl (yl.year)}
+        <text x={yl.x} y={YEAR_H - 2} font-size="9" font-weight="bold" fill="#42382f"
+          >{yl.year}</text
+        >
+      {/each}
 
-        {#each DOW_LABELS as label, di (di)}
-          <text
-            x={LABEL_W - 3}
-            y={MONTH_H + di * STEP + CELL - 2}
-            font-size="8"
-            fill="#7d7468"
-            text-anchor="end">{label}</text
-          >
-        {/each}
+      {#each row.monthLabels as ml (ml.x)}
+        <text x={ml.x} y={TOP_H - 2} font-size="9" fill="#7d7468">{ml.label}</text>
+      {/each}
 
-        {#each yd.cells as cell (cell.day)}
-          <rect
-            x={LABEL_W + cell.wi * STEP}
-            y={MONTH_H + cell.di * STEP}
-            width={CELL}
-            height={CELL}
-            rx="2"
-            fill={cell.color}
-            stroke={cell.day === selectedDay ? '#211c20' : 'none'}
-            stroke-width={cell.day === selectedDay ? 1.5 : 0}
-            data-day={cell.day}
-            role="button"
-            tabindex="0"
-            aria-pressed={cell.day === selectedDay}
-            aria-label={cell.tipLabel}
-            onclick={() => onselect(cell.day)}
-            onkeydown={(e) => handleKey(e, cell.day)}
-            style="cursor: pointer;"
-          >
-            <title>{cell.tipLabel}</title>
-          </rect>
-        {/each}
-      </svg>
-    </div>
+      {#each DOW_LABELS as label, di (di)}
+        <text
+          x={LABEL_W - 3}
+          y={TOP_H + di * STEP + CELL - 2}
+          font-size="8"
+          fill="#7d7468"
+          text-anchor="end">{label}</text
+        >
+      {/each}
+
+      {#each row.cells as cell (cell.day)}
+        <rect
+          x={LABEL_W + cell.wi * STEP}
+          y={TOP_H + cell.di * STEP}
+          width={CELL}
+          height={CELL}
+          rx="2"
+          fill={cell.color}
+          stroke={cell.day === selectedDay ? '#211c20' : 'none'}
+          stroke-width={cell.day === selectedDay ? 1.5 : 0}
+          data-day={cell.day}
+          role="button"
+          tabindex="0"
+          aria-pressed={cell.day === selectedDay}
+          aria-label={cell.tipLabel}
+          onclick={() => onselect(cell.day)}
+          onkeydown={(e) => handleKey(e, cell.day)}
+          onmouseenter={(e) => showTooltip(e, cell.tipLabel)}
+          onmouseleave={hideTooltip}
+          onfocus={(e) => showTooltip(e, cell.tipLabel)}
+          onblur={hideTooltip}
+          style="cursor:pointer;"
+        >
+        </rect>
+      {/each}
+    </svg>
   {/each}
+
+  {#if tooltip}
+    <div class="tooltip" style="left:{tooltip.x}px;top:{tooltip.y}px;">
+      {tooltip.label}
+    </div>
+  {/if}
 </div>
 
 <style>
   .calendar {
     margin: 2rem 0;
+    position: relative;
   }
 
-  .year-block {
-    margin-bottom: 1rem;
-  }
-
-  .year-block svg {
-    display: block;
-    max-width: 100%;
+  .tooltip {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: #211c20;
+    color: #f8f6f2;
+    font-size: 0.75rem;
+    padding: 3px 7px;
+    border-radius: 3px;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
   }
 </style>

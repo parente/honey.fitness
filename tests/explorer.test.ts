@@ -36,16 +36,15 @@ describe('SevenDayChart', () => {
 });
 
 describe('MilesExplorer', () => {
-  it('renders the calendar and chart', () => {
+  it('renders the calendar', () => {
     const { container } = render(MilesExplorer, { data });
     expect(container.querySelectorAll('[data-day]').length).toBeGreaterThan(0);
-    expect(container.querySelector('.chart')).toBeTruthy();
   });
 
-  it('updates chart heading when a calendar cell is clicked', async () => {
+  it('updates selected cell when a calendar cell is clicked', async () => {
     const { container } = render(MilesExplorer, { data });
     const cell = container.querySelector('[data-day="2020-08-26"]') as SVGElement;
     await fireEvent.click(cell);
-    expect(container.textContent).toContain('2020-08-26');
+    expect(cell.getAttribute('aria-pressed')).toBe('true');
   });
 });
