@@ -35,11 +35,13 @@
   // Responsive: measure container width to derive weeks per row
   let containerEl: HTMLDivElement | undefined = $state();
   let containerW = $state(600);
+  let measured = $state(false);
 
   $effect(() => {
     if (!containerEl || typeof ResizeObserver === 'undefined') return;
     const obs = new ResizeObserver((entries) => {
       containerW = entries[0].contentRect.width;
+      measured = true;
     });
     obs.observe(containerEl);
     return () => obs.disconnect();
@@ -165,7 +167,12 @@
   }
 </script>
 
-<div class="calendar" aria-label="Lifetime running calendar" bind:this={containerEl}>
+<div
+  class="calendar"
+  aria-label="Lifetime running calendar"
+  bind:this={containerEl}
+  style="opacity: {measured ? 1 : 0}; transition: opacity 0.15s ease;"
+>
   {#each rows as row (row.rowIdx)}
     <svg
       width={row.svgW}
