@@ -124,7 +124,13 @@
 <div class="calendar" aria-label="Lifetime running calendar — click a day to explore">
   {#each yearData as yd (yd.year)}
     <div class="year-block">
-      <svg width={yd.svgW} height={yd.svgH} role="img" aria-label="{yd.year} running activity">
+      <svg
+        viewBox="0 0 {yd.svgW} {yd.svgH}"
+        width="100%"
+        role="img"
+        aria-label="{yd.year} running activity"
+        preserveAspectRatio="xMinYMid meet"
+      >
         {#each yd.monthLabels as ml (ml.x)}
           <text x={ml.x} y={10} font-size="9" fill="#7d7468">{ml.label}</text>
         {/each}

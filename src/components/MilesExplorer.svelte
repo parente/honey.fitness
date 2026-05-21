@@ -36,9 +36,7 @@
 
 <style>
   .explorer {
-    margin: 2rem -1.5em;
-    padding: 0 1.5em;
-    overflow-x: auto;
+    margin: 2rem 0;
   }
 
   .chart-section {
