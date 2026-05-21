@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { DailyMiles } from '../lib/data';
-  import { DATA_START } from '../lib/data';
   import LifetimeCalendar from './LifetimeCalendar.svelte';
 
   interface Props {
@@ -10,7 +9,9 @@
 
   let { data }: Props = $props();
 
-  let selectedDay = $state(DATA_START);
+  const from = data[0].day;
+  const to = data[data.length - 1].day;
+  let selectedDay = $state(from);
 
   onMount(() => {
     const hash = window.location.hash.slice(1);
@@ -25,4 +26,4 @@
   }
 </script>
 
-<LifetimeCalendar {data} {selectedDay} onselect={handleSelect} />
+<LifetimeCalendar {data} {from} {to} {selectedDay} onselect={handleSelect} />
