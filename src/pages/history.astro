@@ -1,0 +1,217 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Honey the Hamster — How It Worked">
+  <article>
+    <div class="banner">
+      This is the original honey.fitness site, preserved as it appeared when the wheel was spinning.
+      It explains how the data was collected and how the site worked. Visit the <a href="/"
+        >memorial</a
+      > for the final stats.
+    </div>
+
+    <section>
+      <h1>About Me</h1>
+      <img
+        src="/honey.jpg"
+        alt="Honey the Hamster"
+        height="250"
+        class="selfie right tilt-right-5"
+      />
+      <p>
+        Hi! My name is Honey. I am a <a href="https://en.wikipedia.org/wiki/Golden_hamster"
+          >Syrian long-haired hamster</a
+        >. Sometimes we are called teddy bear hamsters. Can you see why?
+      </p>
+
+      <p>
+        My species is nocturnal in captivity. While our caretakers sleep, we like to run up to <em
+          >5 miles</em
+        > a night. That's quite a distance for our pint-sized stature if I may say so.
+      </p>
+
+      <p>
+        True to my kind, I absolutely <em>love</em> to run in my hamster wheel. I used it so much that
+        my adoptive family decided to instrument my wheel to calculate how far I ran each night.
+      </p>
+    </section>
+
+    <section>
+      <h1>My Running Log</h1>
+      <p>
+        I've run a total of <strong>1,886.3</strong> miles in my wheel from August 23rd, 2020 to January
+        18th, 2022. Here's my progress over that time.
+      </p>
+
+      <div class="placeholder">
+        <p>Interactive running calendar — no longer active.</p>
+      </div>
+    </section>
+
+    <section>
+      <h1>About My Wheel</h1>
+      <p>
+        My exercise wheel has two ball bearings that roll around a central bolt fed through a metal
+        stand. The construction keeps the wheel from squeaking and my fur from getting caught in an
+        exposed axle. This design also makes it easy to attach a magnet to the back of the wheel and
+        a magnetic field sensor to its stand.
+      </p>
+
+      <video src="/wheel-run.mp4" autoplay loop controls class="selfie" width="100%"
+        >Your browser does not support video.</video
+      >
+
+      <p>
+        The magnet passes in front of the sensor once for every full revolution of my wheel. The
+        sensor registers the presence of the magnet with a change in voltage on one of the wires
+        leading to a computer. A program running on the computer counts how many times the sensor
+        registers the magnet every minute. It saves the count to disk at the end of each minute.
+      </p>
+
+      <img
+        src="/back-of-wheel.jpg"
+        alt="The magnet and sensor mounted on the wheel and stand"
+        height="400"
+        class="selfie right tilt-right-2"
+      />
+
+      <p>
+        The computer uploads the rotation counts for the past hour to <a
+          href="https://aws.amazon.com/s3/faqs/">Amazon S3</a
+        >. The computer then instructs <a href="https://aws.amazon.com/athena/faqs/"
+          >Amazon Athena</a
+        > to add up <em>all</em> the rotations, add up all the rotations prior to 7 days ago, and add
+        up all the rotations per hour over the last 7 days. Athena stores these numbers in S3 also.
+      </p>
+
+      <p>
+        The website downloads the numbers computed by Athena and uses them to show the running log.
+        It turns the numbers into distances by multiplying the rotation counts by the circumference
+        of the wheel, <em>&pi; &times; d = &pi; &times; 8.5 inches = 26.7 inches</em>. That's how
+        far Honey would have traveled in a straight line on the ground for each full turn of her
+        wheel.
+      </p>
+    </section>
+
+    <section>
+      <h1>Parts List</h1>
+      <img
+        src="/honey-food.jpg"
+        alt="Honey the Hamster in her food bag"
+        height="250"
+        class="selfie right tilt-right-5"
+      />
+      <p>
+        Here's everything needed to put together a wheel and website like this. The upfront cost for
+        all the parts is about $80. The cost of running the website can be as low as $1 per month
+        but depends on the number of visitors.
+      </p>
+      <ul>
+        <li>
+          One <a
+            href="https://www.amazon.com/gp/product/B019RH7PPE/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1"
+            >9 inch SilentRunner exercise wheel</a
+          >
+        </li>
+        <li>
+          One <a href="https://www.acehardware.com/departments/tools/hand-tools/magnets/2108546"
+            >ceramic disc magnet</a
+          >
+        </li>
+        <li>
+          One <a
+            href="https://www.amazon.com/gp/product/B013G5N03O/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1"
+            >SunFounder switch Hall sensor module</a
+          >
+        </li>
+        <li>
+          One <a
+            href="https://www.amazon.com/Square-Double-Strong-Mounting-Adhesive/dp/B07GYMVY41/ref=sr_1_11?dchild=1&keywords=3m+adhesive+strips+double+sided&qid=1602366157&sr=8-11"
+            >double-sided foam adhesive mounting pad</a
+          >
+        </li>
+        <li>
+          Three <a
+            href="https://www.amazon.com/gp/product/B07GJLTHH5/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1"
+            >breadboard jumper wires</a
+          >
+        </li>
+        <li>
+          One (really old) <a
+            href="https://www.raspberrypi.org/products/raspberry-pi-1-model-a-plus/"
+            >Raspberry Pi 1 Model A+</a
+          >
+        </li>
+        <li>One <a href="https://github.com/parente/honey.data/">data pipeline</a></li>
+        <li>One <a href="https://github.com/parente/honey.fitness/">dynamic website</a></li>
+      </ul>
+    </section>
+
+    <hr />
+
+    <section>
+      <p class="footer">
+        Phew. That was a lot of explaining. Good thing Honey packed snacks. Follow her at <a
+          href="https://www.instagram.com/honey_thebesthamster/">honey_thebesthamster</a
+        >, one of the many <a href="https://www.instagram.com/explore/tags/hamstersofinstagram/"
+          >#hamstersofinstagram</a
+        >.
+      </p>
+      <p class="footer"><a href="/">&larr; Back to the memorial</a></p>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .selfie {
+    margin-bottom: 1rem;
+    border: 1px solid #62543e;
+    padding: 0.4rem;
+    box-shadow: 2px 2px 4px #c2b79b;
+    background-color: #f8f6f2;
+  }
+
+  .right {
+    float: right;
+    margin-left: 2rem;
+  }
+
+  .tilt-right-5 {
+    transform: rotate(5deg);
+  }
+
+  .tilt-right-2 {
+    transform: rotate(2deg);
+  }
+
+  .footer {
+    font-style: italic;
+    font-size: 0.8rem;
+  }
+
+  .banner {
+    background-color: #ddd7c7;
+    border-left: 3px solid #7d7468;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .placeholder {
+    background-color: #f0ece4;
+    border: 1px dashed #a49c8e;
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+    color: #7d7468;
+    font-style: italic;
+    font-size: 0.85rem;
+    margin: 1rem 0 2rem;
+  }
+
+  .placeholder p {
+    margin: 0;
+  }
+</style>

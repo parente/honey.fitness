@@ -10,19 +10,23 @@ const data = await loadLifetimeMiles();
   <article>
     <section>
       <h1>In Memorium</h1>
-      <img
-        src="/honey-cheeks.jpg"
-        alt="Honey the Hamster with her cheeks full"
-        height="175"
-        class="selfie right tilt-right-5"
-      />
-      <p>
-        Honey the Syrian long-haired hamster (full name: Honey the Destroyer of Worlds, Killer of
-        Men, Five-time Olympic Gold Medalist) passed away on January 18th, 2022. An avid runner,
-        Honey clocked more than <strong>1,886 miles</strong> in her hamster wheel in less than two years.
-        When asked if her diet was the key to her fitness prowess, she was known to remark, "...", with
-        her cheeks full of secrets.
-      </p>
+      <div class="intro-row">
+        <p>
+          Honey the Syrian long-haired hamster (full name: Honey the Destroyer of Worlds, Killer of
+          Men, Five-time Olympic Gold Medalist) passed away on January 18th, 2022. An avid runner,
+          Honey clocked more than <strong>1,886 miles</strong> in her hamster wheel in less than two years.
+          When asked if her diet was the key to her fitness prowess, she was known to remark, "...", with
+          her cheeks full of secrets. (<a href="/history">How did we know?</a>)
+        </p>
+        <video
+          src="/wheel-run.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          class="selfie intro-video tilt-right-2"
+          aria-label="Honey running in her wheel"></video>
+      </div>
 
       <MilesExplorer {data} client:load />
 
@@ -53,12 +57,18 @@ const data = await loadLifetimeMiles();
         flowers.
       </p>
 
-      <div class="center-img">
+      <div class="final-media">
         <img
           src="/honey-lap.jpg"
           alt="Honey the Hamster sitting in a lap"
-          width="250"
-          class="selfie center tilt-right-2"
+          height="200"
+          class="selfie tilt-right-2"
+        />
+        <img
+          src="/honey-cheeks.jpg"
+          alt="Honey the Hamster with her cheeks full"
+          height="200"
+          class="selfie tilt-left-2"
         />
       </div>
     </section>
@@ -95,7 +105,30 @@ const data = await loadLifetimeMiles();
     margin-right: auto;
   }
 
-  .center-img {
+  .intro-row {
+    display: flex;
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-bottom: 2.5rem;
+  }
+
+  .intro-row p {
+    margin: 0;
+    flex: 1;
+  }
+
+  .intro-video {
+    flex-shrink: 0;
+    width: auto;
+    max-width: 200px;
+    object-fit: cover;
+  }
+
+  .final-media {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
     clear: both;
   }
 
