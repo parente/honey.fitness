@@ -169,7 +169,6 @@
 <style>
   .calendar {
     margin: 2rem 0;
-    overflow-x: auto;
   }
 
   .year-block {
