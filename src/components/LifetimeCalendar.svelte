@@ -23,8 +23,8 @@
   const max = $derived(maxMiles(data));
   const years = $derived([...new Set(data.map((d) => d.day.slice(0, 4)))].sort());
 
-  const CELL = 11;
-  const GAP = 2;
+  const CELL = 10;
+  const GAP = 1;
   const STEP = CELL + GAP;
   const LABEL_W = 24;
   const MONTH_H = 14;
@@ -124,13 +124,7 @@
 <div class="calendar" aria-label="Lifetime running calendar — click a day to explore">
   {#each yearData as yd (yd.year)}
     <div class="year-block">
-      <svg
-        viewBox="0 0 {yd.svgW} {yd.svgH}"
-        width="100%"
-        role="img"
-        aria-label="{yd.year} running activity"
-        preserveAspectRatio="xMinYMid meet"
-      >
+      <svg width={yd.svgW} height={yd.svgH} role="img" aria-label="{yd.year} running activity">
         {#each yd.monthLabels as ml (ml.x)}
           <text x={ml.x} y={10} font-size="9" fill="#7d7468">{ml.label}</text>
         {/each}
@@ -183,5 +177,6 @@
 
   .year-block svg {
     display: block;
+    max-width: 100%;
   }
 </style>
