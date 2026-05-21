@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MilesExplorer from '../components/MilesExplorer.svelte';
+import { loadLifetimeMiles } from '../lib/data';
+
+const data = await loadLifetimeMiles();
+---
+
+<Layout>
+  <article>
+    <section>
+      <h1>In Memorium</h1>
+      <img
+        src="/honey-cheeks.jpg"
+        alt="Honey the Hamster with her cheeks full"
+        height="175"
+        class="selfie right tilt-right-5"
+      />
+      <p>
+        Honey the Syrian long-haired hamster (full name: Honey the Destroyer of Worlds, Killer of
+        Men, Five-time Olympic Gold Medalist) passed away on January 18th, 2022. An avid runner,
+        Honey clocked more than <strong>1,886 miles</strong> in her hamster wheel in less than two years.
+        When asked if her diet was the key to her fitness prowess, she was known to remark, "...", with
+        her cheeks full of secrets.
+      </p>
+
+      <MilesExplorer {data} client:load />
+
+      <img
+        src="/honey-pullup.jpg"
+        alt="Honey the Hamster doing a pull-up on her cage bars"
+        height="175"
+        class="selfie right tilt-right-5"
+      />
+      <img
+        src="/honey-shot-first.jpg"
+        alt="Honey the Hamster looking mischievous"
+        height="175"
+        class="selfie right tilt-left-2"
+      />
+      <p>
+        Honey loved travel as much as she loved working out. Her favorite exotic destinations
+        included Narnia Under the Couch, the Lower Bookcase Shelf Next to the Legos, and Behind the
+        Master Bath Toilet. Never one to miss an opportunity to scratch her back at a baseboard
+        corner, Honey took time to sniff the world while out and about. Her 20 minute forays left
+        her fulfilled and ready to return home at the call of her name to her waiting wheel, snack
+        sticks, water bottle, and soft bedding.
+      </p>
+
+      <p>
+        Honey now rests in a mossy plot in The Great Backyard. She is survived by her three
+        caretakers. Donations can be made to the <a href="https://www.aspca.org/">ASPCA</a> in lieu of
+        flowers.
+      </p>
+
+      <div class="center-img">
+        <img
+          src="/honey-lap.jpg"
+          alt="Honey the Hamster sitting in a lap"
+          width="250"
+          class="selfie center tilt-right-2"
+        />
+      </div>
+    </section>
+
+    <hr />
+
+    <section>
+      <p class="footer">
+        For more photos of the life and times of Honey, visit <a
+          href="https://www.instagram.com/honey_thebesthamster/">honey_thebesthamster</a
+        > on Instagram.
+      </p>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .selfie {
+    margin-bottom: 1rem;
+    border: 1px solid #62543e;
+    padding: 0.4rem;
+    box-shadow: 2px 2px 4px #c2b79b;
+    background-color: #f8f6f2;
+  }
+
+  .right {
+    float: right;
+    margin-left: 2rem;
+  }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .center-img {
+    clear: both;
+  }
+
+  .tilt-right-5 {
+    transform: rotate(5deg);
+  }
+
+  .tilt-right-2 {
+    transform: rotate(2deg);
+  }
+
+  .tilt-left-2 {
+    transform: rotate(-2deg);
+  }
+
+  .footer {
+    font-style: italic;
+    font-size: 0.8rem;
+  }
+</style>
