@@ -3,12 +3,13 @@
 A memorial for Honey the Syrian long-haired hamster, who ran over 1,886 miles in her exercise
 wheel between August 2020 and January 2022.
 
-Live at **[honey.parente.dev](https://honey.parente.dev)**.
+Live at **[honey.parente.dev](https://honey.parente.dev)**. Includes the original page 
+explaining how the tracking worked.
 
 ## Stack
 
 - [Astro](https://astro.build) — static site generator (`output: 'static'`)
-- [Svelte 5](https://svelte.dev) — interactive island (calendar + 7-day chart)
+- [Svelte 5](https://svelte.dev) — interactive island (calendar + tooltips)
 - [Cloudflare Pages](https://pages.cloudflare.com) — hosting via Git integration
 - Data: build-time fetch from `https://honey-data-public.s3.amazonaws.com/lifetime.csv`
 
@@ -23,20 +24,6 @@ npm run check      # Astro + TypeScript type check
 npm run lint       # Prettier + ESLint
 npm run test       # Vitest
 ```
-
-## Cloudflare Pages setup
-
-In the Cloudflare Pages dashboard, connect this repository with:
-
-| Setting                | Value               |
-| ---------------------- | ------------------- |
-| Build command          | `npm run build`     |
-| Build output directory | `dist`              |
-| Node.js version        | `22`                |
-| Production branch      | `main`              |
-| Custom domain          | `honey.parente.dev` |
-
-No environment variables are required. The S3 data is fetched at build time.
 
 ## Data sources
 
