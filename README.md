@@ -3,7 +3,7 @@
 A memorial for Honey the Syrian long-haired hamster, who ran over 1,886 miles in her exercise
 wheel between August 2020 and January 2022.
 
-Live at **[honey.parente.dev](https://honey.parente.dev)**. Includes the original page 
+Live at **[honey.parente.dev](https://honey.parente.dev)**. Includes the original page
 explaining how the tracking worked.
 
 ## Stack
