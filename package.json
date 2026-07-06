@@ -19,6 +19,7 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/svelte": "^9.0.0",
     "@eslint/js": "^10.0.1",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@testing-library/svelte": "^5.4.2",
     "astro": "^7.0.4",
     "eslint": "^10.6.0",
