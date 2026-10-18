@@ -6,9 +6,8 @@ import Layout from '../layouts/Layout.astro';
   <article>
     <div class="banner">
       This is the original honey.fitness site, preserved as it appeared when the wheel was spinning.
-      It explains how the data was collected and how the site worked. Visit the <a href="/"
-        >memorial</a
-      > for the final stats.
+      It explains how the data was collected and how the site worked. Visit the{' '}
+      <a href="/">memorial</a> for the final stats.
     </div>
 
     <section>
@@ -20,28 +19,29 @@ import Layout from '../layouts/Layout.astro';
         class="selfie right tilt-right-5"
       />
       <p>
-        Hi! My name is Honey. I am a <a href="https://en.wikipedia.org/wiki/Golden_hamster"
-          >Syrian long-haired hamster</a
-        >. Sometimes we are called teddy bear hamsters. Can you see why?
+        Hi! My name is Honey. I am a{' '}
+        <a href="https://en.wikipedia.org/wiki/Golden_hamster">Syrian long-haired hamster</a>.
+        Sometimes we are called teddy bear hamsters. Can you see why?
       </p>
 
       <p>
-        My species is nocturnal in captivity. While our caretakers sleep, we like to run up to <em
-          >5 miles</em
-        > a night. That's quite a distance for our pint-sized stature if I may say so.
+        My species is nocturnal in captivity. While our caretakers sleep, we like to run up to{' '}
+        <em>5 miles</em> a night. That's quite a distance for our pint-sized stature if I may say
+        so.
       </p>
 
       <p>
-        True to my kind, I absolutely <em>love</em> to run in my hamster wheel. I used it so much that
-        my adoptive family decided to instrument my wheel to calculate how far I ran each night.
+        True to my kind, I absolutely <em>love</em> to run in my hamster wheel. I used it so much
+        that my adoptive family decided to instrument my wheel to calculate how far I ran each
+        night.
       </p>
     </section>
 
     <section>
       <h1>My Running Log</h1>
       <p>
-        I've run a total of <strong>1,886.3</strong> miles in my wheel from August 23rd, 2020 to January
-        18th, 2022. Here's my progress over that time.
+        I've run a total of <strong>1,886.3</strong> miles in my wheel from August 23rd, 2020 to
+        January 18th, 2022. Here's my progress over that time.
       </p>
 
       <div class="placeholder">
@@ -58,9 +58,9 @@ import Layout from '../layouts/Layout.astro';
         a magnetic field sensor to its stand.
       </p>
 
-      <video src="/wheel-run.mp4" autoplay loop controls class="selfie" width="100%"
-        >Your browser does not support video.</video
-      >
+      <video src="/wheel-run.mp4" autoplay loop controls class="selfie" width="100%">
+        Your browser does not support video.
+      </video>
 
       <p>
         The magnet passes in front of the sensor once for every full revolution of my wheel. The
@@ -77,12 +77,11 @@ import Layout from '../layouts/Layout.astro';
       />
 
       <p>
-        The computer uploads the rotation counts for the past hour to <a
-          href="https://aws.amazon.com/s3/faqs/">Amazon S3</a
-        >. The computer then instructs <a href="https://aws.amazon.com/athena/faqs/"
-          >Amazon Athena</a
-        > to add up <em>all</em> the rotations, add up all the rotations prior to 7 days ago, and add
-        up all the rotations per hour over the last 7 days. Athena stores these numbers in S3 also.
+        The computer uploads the rotation counts for the past hour to{' '}
+        <a href="https://aws.amazon.com/s3/faqs/">Amazon S3</a>. The computer then instructs{' '}
+        <a href="https://aws.amazon.com/athena/faqs/">Amazon Athena</a> to add up <em>all</em> the
+        rotations, add up all the rotations prior to 7 days ago, and add up all the rotations per
+        hour over the last 7 days. Athena stores these numbers in S3 also.
       </p>
 
       <p>
@@ -109,42 +108,47 @@ import Layout from '../layouts/Layout.astro';
       </p>
       <ul>
         <li>
-          One <a
-            href="https://www.amazon.com/gp/product/B019RH7PPE/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1"
-            >9 inch SilentRunner exercise wheel</a
-          >
+          One{' '}
+          <a href="https://www.amazon.com/gp/product/B019RH7PPE/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1">
+            9 inch SilentRunner exercise wheel
+          </a>
         </li>
         <li>
-          One <a href="https://www.acehardware.com/departments/tools/hand-tools/magnets/2108546"
-            >ceramic disc magnet</a
-          >
+          One{' '}
+          <a href="https://www.acehardware.com/departments/tools/hand-tools/magnets/2108546">
+            ceramic disc magnet
+          </a>
         </li>
         <li>
-          One <a
-            href="https://www.amazon.com/gp/product/B013G5N03O/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1"
-            >SunFounder switch Hall sensor module</a
-          >
+          One{' '}
+          <a href="https://www.amazon.com/gp/product/B013G5N03O/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1">
+            SunFounder switch Hall sensor module
+          </a>
         </li>
         <li>
-          One <a
-            href="https://www.amazon.com/Square-Double-Strong-Mounting-Adhesive/dp/B07GYMVY41/ref=sr_1_11?dchild=1&keywords=3m+adhesive+strips+double+sided&qid=1602366157&sr=8-11"
-            >double-sided foam adhesive mounting pad</a
-          >
+          One{' '}
+          <a href="https://www.amazon.com/Square-Double-Strong-Mounting-Adhesive/dp/B07GYMVY41/ref=sr_1_11?dchild=1&keywords=3m+adhesive+strips+double+sided&qid=1602366157&sr=8-11">
+            double-sided foam adhesive mounting pad
+          </a>
         </li>
         <li>
-          Three <a
-            href="https://www.amazon.com/gp/product/B07GJLTHH5/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1"
-            >breadboard jumper wires</a
-          >
+          Three{' '}
+          <a href="https://www.amazon.com/gp/product/B07GJLTHH5/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1">
+            breadboard jumper wires
+          </a>
         </li>
         <li>
-          One (really old) <a
-            href="https://www.raspberrypi.org/products/raspberry-pi-1-model-a-plus/"
-            >Raspberry Pi 1 Model A+</a
-          >
+          One (really old){' '}
+          <a href="https://www.raspberrypi.org/products/raspberry-pi-1-model-a-plus/">
+            Raspberry Pi 1 Model A+
+          </a>
         </li>
-        <li>One <a href="https://github.com/parente/honey.data/">data pipeline</a></li>
-        <li>One <a href="https://github.com/parente/honey.fitness/">dynamic website</a></li>
+        <li>
+          One <a href="https://github.com/parente/honey.data/">data pipeline</a>
+        </li>
+        <li>
+          One <a href="https://github.com/parente/honey.fitness/">dynamic website</a>
+        </li>
       </ul>
     </section>
 
@@ -152,13 +156,17 @@ import Layout from '../layouts/Layout.astro';
 
     <section>
       <p class="footer">
-        Phew. That was a lot of explaining. Good thing Honey packed snacks. Follow her at <a
-          href="https://www.instagram.com/honey_thebesthamster/">honey_thebesthamster</a
-        >, one of the many <a href="https://www.instagram.com/explore/tags/hamstersofinstagram/"
-          >#hamstersofinstagram</a
-        >.
+        Phew. That was a lot of explaining. Good thing Honey packed snacks. Follow her at{' '}
+        <a href="https://www.instagram.com/honey_thebesthamster/">honey_thebesthamster</a>, one of
+        the many{' '}
+        <a href="https://www.instagram.com/explore/tags/hamstersofinstagram/">
+          #hamstersofinstagram
+        </a>
+        .
       </p>
-      <p class="footer"><a href="/">&larr; Back to the memorial</a></p>
+      <p class="footer">
+        <a href="/">&larr; Back to the memorial</a>
+      </p>
     </section>
   </article>
 </Layout>

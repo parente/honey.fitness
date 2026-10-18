@@ -39,86 +39,84 @@ const DOW_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 ---
 
 <div class="calendar" aria-label="Lifetime running calendar">
-  {
-    years.map((year) => {
-      const weeks = weeksForYear(year);
-      const svgW = LABEL_W + weeks.length * STEP;
-      const svgH = MONTH_H + 7 * STEP;
+  {years.map((year) => {
+    const weeks = weeksForYear(year);
+    const svgW = LABEL_W + weeks.length * STEP;
+    const svgH = MONTH_H + 7 * STEP;
 
-      // Month label positions
-      const monthLabels: { x: number; label: string }[] = [];
-      let lastMonth = '';
-      weeks.forEach((week, wi) => {
-        const firstDay = week.find((d) => d !== '');
-        if (firstDay) {
-          const m = firstDay.slice(5, 7);
-          if (m !== lastMonth) {
-            monthLabels.push({
-              x: LABEL_W + wi * STEP,
-              label: new Date(firstDay + 'T12:00:00Z').toLocaleDateString('en-US', {
-                month: 'short',
-                timeZone: 'UTC',
-              }),
-            });
-            lastMonth = m;
-          }
+    // Month label positions
+    const monthLabels: { x: number; label: string }[] = [];
+    let lastMonth = '';
+    weeks.forEach((week, wi) => {
+      const firstDay = week.find((d) => d !== '');
+      if (firstDay) {
+        const m = firstDay.slice(5, 7);
+        if (m !== lastMonth) {
+          monthLabels.push({
+            x: LABEL_W + wi * STEP,
+            label: new Date(firstDay + 'T12:00:00Z').toLocaleDateString('en-US', {
+              month: 'short',
+              timeZone: 'UTC',
+            }),
+          });
+          lastMonth = m;
         }
-      });
+      }
+    });
 
-      return (
-        <div class="year-block">
-          <svg width={svgW} height={svgH} role="img" aria-label={`${year} running activity`}>
-            {/* Month labels */}
-            {monthLabels.map(({ x, label }) => (
-              <text x={x} y={10} font-size="9" fill="#7d7468">
-                {label}
-              </text>
-            ))}
+    return (
+      <div class="year-block">
+        <svg width={svgW} height={svgH} role="img" aria-label={`${year} running activity`}>
+          {/* Month labels */}
+          {monthLabels.map(({ x, label }) => (
+            <text x={x} y={10} font-size="9" fill="#7d7468">
+              {label}
+            </text>
+          ))}
 
-            {/* Day-of-week labels */}
-            {DOW_LABELS.map((label, di) => (
-              <text
-                x={LABEL_W - 3}
-                y={MONTH_H + di * STEP + CELL - 2}
-                font-size="8"
-                fill="#7d7468"
-                text-anchor="end"
-              >
-                {label}
-              </text>
-            ))}
+          {/* Day-of-week labels */}
+          {DOW_LABELS.map((label, di) => (
+            <text
+              x={LABEL_W - 3}
+              y={MONTH_H + di * STEP + CELL - 2}
+              font-size="8"
+              fill="#7d7468"
+              text-anchor="end"
+            >
+              {label}
+            </text>
+          ))}
 
-            {/* Cells */}
-            {weeks.map((week, wi) =>
-              week.map((day, di) => {
-                if (!day) return null;
-                const miles = dayMap.get(day) ?? 0;
-                const color = bucketColor(miles, max);
-                const label =
-                  color === EMPTY_COLOR
-                    ? `${fmtShort(day)}: no data`
-                    : `${fmtShort(day)}: ${miles.toFixed(1)} mi`;
-                return (
-                  <rect
-                    x={LABEL_W + wi * STEP}
-                    y={MONTH_H + di * STEP}
-                    width={CELL}
-                    height={CELL}
-                    rx="2"
-                    fill={color}
-                    data-day={day}
-                    data-miles={miles.toFixed(2)}
-                  >
-                    <title>{label}</title>
-                  </rect>
-                );
-              })
-            )}
-          </svg>
-        </div>
-      );
-    })
-  }
+          {/* Cells */}
+          {weeks.map((week, wi) =>
+            week.map((day, di) => {
+              if (!day) return null;
+              const miles = dayMap.get(day) ?? 0;
+              const color = bucketColor(miles, max);
+              const label =
+                color === EMPTY_COLOR
+                  ? `${fmtShort(day)}: no data`
+                  : `${fmtShort(day)}: ${miles.toFixed(1)} mi`;
+              return (
+                <rect
+                  x={LABEL_W + wi * STEP}
+                  y={MONTH_H + di * STEP}
+                  width={CELL}
+                  height={CELL}
+                  rx="2"
+                  fill={color}
+                  data-day={day}
+                  data-miles={miles.toFixed(2)}
+                >
+                  <title>{label}</title>
+                </rect>
+              );
+            })
+          )}
+        </svg>
+      </div>
+    );
+  })}
 </div>
 
 <style>
